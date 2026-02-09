@@ -9,5 +9,5 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     start_http_server(8000)
-    server = http.server.HTTPServer(('localhost', 8001), MyHandler)
+    server = http.server.HTTPServer(('0.0.0.0', 8001), MyHandler)
     server.serve_forever()
