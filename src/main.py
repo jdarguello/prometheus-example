@@ -13,8 +13,8 @@ LATENCY = Summary(
 )
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
+    @LATENCY.time()
     def do_GET(self):
-        start = time.time()
         REQUESTS.inc()
         with EXCEPTIONS.count_exceptions():
           if random.random() < 0.1:
@@ -22,7 +22,6 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Hello World")
-        LATENCY.observe(time.time() - start)
 
 if __name__ == "__main__":
     start_http_server(8000)
